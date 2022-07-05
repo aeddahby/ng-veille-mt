@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220704225443",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "attachment",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "attach",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Attachment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "ticket",
+      "otherEntityRelationshipName": "attachment",
+      "relationshipName": "ticket",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

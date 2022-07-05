@@ -1,0 +1,77 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-attachment-heading" data-cy="AttachmentCreateUpdateHeading">Create or edit a Attachment</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_attach">Attach</label>
+          <div>
+            <div *ngIf="editForm.get('attach')!.value" class="form-text text-danger clearfix">
+              <a class="pull-start" (click)="openFile(editForm.get('attach')!.value, editForm.get('attachContentType')!.value)">open</a
+              ><br />
+              <span class="pull-start">{{ editForm.get('attachContentType')!.value }}, {{ byteSize(editForm.get('attach')!.value) }}</span>
+              <button
+                type="button"
+                (click)="editForm.patchValue({ attach: null }); editForm.patchValue({ attachContentType: null })"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_attach" data-cy="attach" (change)="setFileData($event, 'attach', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="attach" id="field_attach" data-cy="attach" formControlName="attach" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="attachContentType"
+            id="field_attachContentType"
+            formControlName="attachContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_ticket">Ticket</label>
+          <select class="form-control" id="field_ticket" data-cy="ticket" name="ticket" formControlName="ticket">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="ticketOption.id === editForm.get('ticket')!.value?.id ? editForm.get('ticket')!.value : ticketOption"
+              *ngFor="let ticketOption of ticketsSharedCollection; trackBy: trackTicketById"
+            >
+              {{ ticketOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

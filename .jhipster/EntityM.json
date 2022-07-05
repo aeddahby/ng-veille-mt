@@ -1,0 +1,20 @@
+{
+  "applications": "*",
+  "changelogDate": "20220704225446",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "entity_m",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "EntityM",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

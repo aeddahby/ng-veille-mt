@@ -1,0 +1,110 @@
+{
+  "applications": "*",
+  "changelogDate": "20220704225442",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "ticket",
+  "fields": [
+    {
+      "fieldName": "object",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "modificationDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "closedDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "contributor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "contributorVisibility",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "entityVisibility",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "directionVisibility",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "centralAnimator",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "centralRelay",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regionalRelay",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "stateTicket",
+      "fieldType": "StateTicket",
+      "fieldValues": "OPENED (Opened),CLOSED (Closed)"
+    },
+    {
+      "fieldName": "statusTicket",
+      "fieldType": "Status",
+      "fieldValues": "CREATED (Created),IN_PROGRESS (InProgress),CONFIRMED (Confirmed)"
+    },
+    {
+      "fieldName": "pertinence",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Ticket",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "directionRegionale",
+      "otherEntityRelationshipName": "ticket",
+      "ownerSide": true,
+      "relationshipName": "directionRegionale",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "category",
+      "otherEntityRelationshipName": "ticket",
+      "ownerSide": true,
+      "relationshipName": "category",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "entityM",
+      "otherEntityRelationshipName": "ticket",
+      "ownerSide": true,
+      "relationshipName": "entity",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "attachment",
+      "otherEntityRelationshipName": "ticket",
+      "relationshipName": "attachment",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceImpl"
+}
