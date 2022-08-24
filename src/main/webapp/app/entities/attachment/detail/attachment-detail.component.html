@@ -14,18 +14,18 @@
         <dd>
           <span>{{ attachment.id }}</span>
         </dd>
-        <dt><span>Name</span></dt>
+        <dt><span>Nom</span></dt>
         <dd>
           <span>{{ attachment.name }}</span>
         </dd>
-        <dt><span>Attach</span></dt>
+        <dt><span>Attachement</span></dt>
         <dd>
           <div *ngIf="attachment.attach">
             <a (click)="openFile(attachment.attach, attachment.attachContentType)">open</a>
             {{ attachment.attachContentType }}, {{ byteSize(attachment.attach) }}
           </div>
         </dd>
-        <dt><span>Ticket</span></dt>
+        <dt><span>Remontée</span></dt>
         <dd>
           <div *ngIf="attachment.ticket">
             <a [routerLink]="['/ticket', attachment.ticket?.id, 'view']">{{ attachment.ticket?.id }}</a>
@@ -34,11 +34,11 @@
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
       </button>
 
       <button type="button" [routerLink]="['/attachment', attachment.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Modifier</span>
       </button>
     </div>
   </div>

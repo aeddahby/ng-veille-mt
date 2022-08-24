@@ -5,7 +5,7 @@ import dayjs from 'dayjs/esm';
 import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { StateTicket } from 'app/entities/enumerations/state-ticket.model';
 import { Status } from 'app/entities/enumerations/status.model';
-import { ITicket, Ticket } from '../ticket.model';
+import { ITicket,  } from '../ticket.model';
 
 import { TicketService } from './ticket.service';
 

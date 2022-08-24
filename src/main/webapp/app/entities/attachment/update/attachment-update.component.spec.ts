@@ -62,7 +62,7 @@ describe('Attachment Management Update Component', () => {
 
       expect(ticketService.query).toHaveBeenCalled();
       expect(ticketService.addTicketToCollectionIfMissing).toHaveBeenCalledWith(ticketCollection, ...additionalTickets);
-      expect(comp.ticketsSharedCollection).toEqual(expectedCollection);
+      expect(comp.SharedCollection).toEqual(expectedCollection);
     });
 
     it('Should update editForm', () => {

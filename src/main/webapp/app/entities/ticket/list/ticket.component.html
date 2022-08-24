@@ -1,13 +1,13 @@
 <div>
   <h2 id="page-heading" data-cy="TicketHeading">
-    <span>Tickets</span>
+    <span>Remontées</span>
 
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+    <div class="d-flex justify-content-end" *jhiHasAnyAuthority="['ROLE_CONTRIBUTEUR', 'ROLE_ANIMATEUR_CENTRAL']" >
+      <!-- <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-        <span>Refresh List</span>
+        <span>Actualiser</span>
       </button>
-
+    -->
       <button
         id="jh-create-entity"
         data-cy="entityCreateButton"
@@ -15,7 +15,7 @@
         [routerLink]="['/ticket/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Create a new Ticket </span>
+        <span> Créer une remontée </span>
       </button>
     </div>
   </h2>
@@ -25,32 +25,32 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="tickets?.length === 0">
-    <span>No tickets found</span>
+    <span>Aucune remontée retrouver</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="tickets && tickets.length > 0">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
-          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="object"><span>Object</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="id"><span>ID </span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="object"><span>Objet</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="description"><span>Description</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="creationDate"><span>Creation Date</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="modificationDate"><span>Modification Date</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="closedDate"><span>Closed Date</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="contributor"><span>Contributor</span> <fa-icon icon="sort"></fa-icon></th>
+          <!--<th scope="col" jhiSortBy="creationDate"><span>Date création</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="modificationDate"><span>Date de Modification</span> <fa-icon icon="sort"></fa-icon></th> 
+          <th scope="col" jhiSortBy="closedDate"><span>Date clôture</span> <fa-icon icon="sort"></fa-icon></th>-->
+         <!--<th scope="col" jhiSortBy="contributor"><span>Contributeur</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="contributorVisibility"><span>Contributor Visibility</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="entityVisibility"><span>Entity Visibility</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="directionVisibility"><span>Direction Visibility</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="centralAnimator"><span>Central Animator</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="directionVisibility"><span>Direction Visibility</span> <fa-icon icon="sort"></fa-icon></th> 
+          <th scope="col" jhiSortBy="centralAnimator"><span>Animateur central</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="centralRelay"><span>Central Relay</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="regionalRelay"><span>Regional Relay</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="stateTicket"><span>State Ticket</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="statusTicket"><span>Status Ticket</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="pertinence"><span>Pertinence</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="regionalRelay"><span>Regional Relay</span> <fa-icon icon="sort"></fa-icon></th>-->
+          <th scope="col" jhiSortBy="stateTicket"><span>Etat</span> <fa-icon icon="sort"></fa-icon></th>
+          <!--<th scope="col" jhiSortBy="statusTicket"><span>Statut</span> <fa-icon icon="sort"></fa-icon></th>-->
+          <!--<th scope="col" jhiSortBy="pertinence"><span>Pertinence</span> <fa-icon icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="directionRegionale.name"><span>Direction Regionale</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="category.name"><span>Category</span> <fa-icon icon="sort"></fa-icon></th>
-          <th scope="col" jhiSortBy="entity.title"><span>Entity</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="category.name"><span>Categorie</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="entity.title"><span>Entité</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -61,19 +61,19 @@
           </td>
           <td>{{ ticket.object }}</td>
           <td>{{ ticket.description }}</td>
-          <td>{{ ticket.creationDate | formatMediumDatetime }}</td>
-          <td>{{ ticket.modificationDate | formatMediumDatetime }}</td>
-          <td>{{ ticket.closedDate | formatMediumDatetime }}</td>
-          <td>{{ ticket.contributor }}</td>
+        <!--  <td>{{ ticket.creationDate | formatMediumDatetime }}</td>
+         <td>{{ ticket.modificationDate | formatMediumDatetime }}</td>
+          <td>{{ ticket.closedDate | formatMediumDatetime }}</td>-->
+         <!-- <td>{{ ticket.contributor }}</td> 
           <td>{{ ticket.contributorVisibility }}</td>
           <td>{{ ticket.entityVisibility }}</td>
           <td>{{ ticket.directionVisibility }}</td>
           <td>{{ ticket.centralAnimator }}</td>
           <td>{{ ticket.centralRelay }}</td>
-          <td>{{ ticket.regionalRelay }}</td>
+          <td>{{ ticket.regionalRelay }}</td>--> 
           <td>{{ ticket.stateTicket }}</td>
-          <td>{{ ticket.statusTicket }}</td>
-          <td>{{ ticket.pertinence }}</td>
+          <!--<td>{{ ticket.statusTicket }}</td>-->
+          <!--<td>{{ ticket.pertinence }}</td>-->
           <td>
             <div *ngIf="ticket.directionRegionale">
               <a [routerLink]="['/direction-regionale', ticket.directionRegionale?.id, 'view']">{{ ticket.directionRegionale?.name }}</a>
@@ -93,18 +93,18 @@
             <div class="btn-group">
               <button type="submit" [routerLink]="['/ticket', ticket.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
                 <fa-icon icon="eye"></fa-icon>
-                <span class="d-none d-md-inline">View</span>
+                <span class="d-none d-md-inline">Visualiser</span>
               </button>
 
               <button type="submit" [routerLink]="['/ticket', ticket.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
                 <fa-icon icon="pencil-alt"></fa-icon>
-                <span class="d-none d-md-inline">Edit</span>
+                <span class="d-none d-md-inline">Modifier</span>
               </button>
 
-              <button type="submit" (click)="delete(ticket)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+              <button type="submit" (click)="delete(ticket)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
                 <fa-icon icon="times"></fa-icon>
-                <span class="d-none d-md-inline">Delete</span>
-              </button>
+                <span class="d-none d-md-inline">Supprimer</span>
+              </button> 
             </div>
           </td>
         </tr>

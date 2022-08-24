@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="ticket">
-      <h2 data-cy="ticketDetailsHeading"><span>Ticket</span></h2>
+      <h2 data-cy="ticketDetailsHeading"><span>Remontée</span></h2>
 
       <hr />
 
@@ -14,7 +14,7 @@
         <dd>
           <span>{{ ticket.id }}</span>
         </dd>
-        <dt><span>Object</span></dt>
+        <dt><span>Objet</span></dt>
         <dd>
           <span>{{ ticket.object }}</span>
         </dd>
@@ -22,23 +22,30 @@
         <dd>
           <span>{{ ticket.description }}</span>
         </dd>
-        <dt><span>Creation Date</span></dt>
+        <dt><span>Attachement</span></dt>
+        <dd>
+          <div *ngIf="ticket.attach">
+            <a (click)="openFile(ticket.attach, ticket.attachContentType)">open</a>
+            {{ ticket.attachContentType }}
+          </div>
+        </dd>
+        <dt><span>Date Création</span></dt>
         <dd>
           <span>{{ ticket.creationDate | formatMediumDatetime }}</span>
         </dd>
-        <dt><span>Modification Date</span></dt>
+<!--        <dt><span>Date Modification</span></dt>
         <dd>
           <span>{{ ticket.modificationDate | formatMediumDatetime }}</span>
         </dd>
-        <dt><span>Closed Date</span></dt>
+        <dt><span>Date Cloture</span></dt>
         <dd>
           <span>{{ ticket.closedDate | formatMediumDatetime }}</span>
-        </dd>
-        <dt><span>Contributor</span></dt>
-        <dd>
+        </dd> -->
+        <dt *ngIf="ticket.contributorVisibility"><span>Contributeur</span></dt>
+        <dd *ngIf="ticket.contributorVisibility">
           <span>{{ ticket.contributor }}</span>
         </dd>
-        <dt><span>Contributor Visibility</span></dt>
+        <!--<dt><span>Contributor Visibility</span></dt>
         <dd>
           <span>{{ ticket.contributorVisibility }}</span>
         </dd>
@@ -61,33 +68,33 @@
         <dt><span>Regional Relay</span></dt>
         <dd>
           <span>{{ ticket.regionalRelay }}</span>
-        </dd>
-        <dt><span>State Ticket</span></dt>
+        </dd>-->
+        <dt><span>Etat</span></dt>
         <dd>
           <span>{{ ticket.stateTicket }}</span>
         </dd>
-        <dt><span>Status Ticket</span></dt>
+        <dt><span>Statut</span></dt>
         <dd>
           <span>{{ ticket.statusTicket }}</span>
         </dd>
-        <dt><span>Pertinence</span></dt>
+<!--        <dt><span>Pertinence</span></dt>
         <dd>
           <span>{{ ticket.pertinence }}</span>
-        </dd>
-        <dt><span>Direction Regionale</span></dt>
-        <dd>
+        </dd> -->
+        <dt *ngIf="ticket.directionVisibility"><span>Direction Regionale</span></dt>
+        <dd *ngIf="ticket.directionVisibility">
           <div *ngIf="ticket.directionRegionale">
             <a [routerLink]="['/direction-regionale', ticket.directionRegionale?.id, 'view']">{{ ticket.directionRegionale?.name }}</a>
           </div>
         </dd>
-        <dt><span>Category</span></dt>
+        <dt><span>Catégorie</span></dt>
         <dd>
           <div *ngIf="ticket.category">
             <a [routerLink]="['/category', ticket.category?.id, 'view']">{{ ticket.category?.name }}</a>
           </div>
         </dd>
-        <dt><span>Entity</span></dt>
-        <dd>
+        <dt *ngIf="ticket.entityVisibility"><span>Entité</span></dt>
+        <dd *ngIf="ticket.entityVisibility">
           <div *ngIf="ticket.entity">
             <a [routerLink]="['/entity-m', ticket.entity?.id, 'view']">{{ ticket.entity?.title }}</a>
           </div>
@@ -95,11 +102,11 @@
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
       </button>
 
       <button type="button" [routerLink]="['/ticket', ticket.id, 'edit']" class="btn btn-primary">
-        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Modifier</span>
       </button>
     </div>
   </div>

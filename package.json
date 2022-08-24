@@ -2,7 +2,7 @@
   "name": "ng-veille-mt",
   "version": "0.0.1-SNAPSHOT",
   "private": true,
-  "description": "Description for ng_veille_mt",
+  "description": "Description for ",
   "license": "UNLICENSED",
   "scripts": {
     "build": "npm run webapp:prod --",

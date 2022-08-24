@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <div *ngIf="category">
-      <h2 data-cy="categoryDetailsHeading"><span>Category</span></h2>
+      <h2 data-cy="categoryDetailsHeading"><span>Catégorie</span></h2>
 
       <hr />
 
@@ -24,7 +24,7 @@
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
       </button>
 
-      <button type="button" [routerLink]="['/category', category.id, 'edit']" class="btn btn-primary">
+      <button type="button" [routerLink]="['/category', category.id, 'edit']" class="btn btn-primary" hidden>
         <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
       </button>
     </div>

@@ -18,6 +18,10 @@ import { IEntityM } from 'app/entities/entity-m/entity-m.model';
 import { EntityMService } from 'app/entities/entity-m/service/entity-m.service';
 import { StateTicket } from 'app/entities/enumerations/state-ticket.model';
 import { Status } from 'app/entities/enumerations/status.model';
+import { AttachmentService } from 'app/entities/attachment/service/attachment.service';
+import { DataUtils, FileLoadError } from 'app/core/util/data-util.service';
+import { EventManager, EventWithContent } from 'app/core/util/event-manager.service';
+import { AlertError } from 'app/shared/alert/alert-error.model';
 
 @Component({
   selector: 'jhi-ticket-update',
@@ -27,11 +31,12 @@ export class TicketUpdateComponent implements OnInit {
   isSaving = false;
   stateTicketValues = Object.keys(StateTicket);
   statusValues = Object.keys(Status);
-
+  showContributor = true;
+  showDirection = true;
+  showEntity = true;
   directionRegionalesCollection: IDirectionRegionale[] = [];
   categoriesCollection: ICategory[] = [];
   entitiesCollection: IEntityM[] = [];
-
   editForm = this.fb.group({
     id: [],
     object: [],
@@ -52,6 +57,11 @@ export class TicketUpdateComponent implements OnInit {
     directionRegionale: [],
     category: [],
     entity: [],
+    attachContentType: [],
+    attach: [],  
+    showContributor: [],
+    showDirection: [],
+    showEntity: [],
   });
 
   constructor(
@@ -60,7 +70,10 @@ export class TicketUpdateComponent implements OnInit {
     protected categoryService: CategoryService,
     protected entityMService: EntityMService,
     protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
+    protected fb: FormBuilder,
+    protected attachmentService: AttachmentService,
+    protected dataUtils: DataUtils,
+    protected eventManager: EventManager,
   ) {}
 
   ngOnInit(): void {
@@ -75,6 +88,21 @@ export class TicketUpdateComponent implements OnInit {
       this.updateForm(ticket);
 
       this.loadRelationshipsOptions();
+    });
+  }
+
+  byteSize(base64String: string): string {
+    return this.dataUtils.byteSize(base64String);
+  }
+
+  openFile(base64String: string, contentType: string | null | undefined): void {
+    this.dataUtils.openFile(base64String, contentType);
+  }
+
+  setFileData(event: Event, field: string, isImage: boolean): void {
+    this.dataUtils.loadFileToForm(event, this.editForm, field, isImage).subscribe({
+      error: (err: FileLoadError) =>
+        this.eventManager.broadcast(new EventWithContent<AlertError>('ngVeilleMtApp.error', { message: err.message })),
     });
   }
 
@@ -102,6 +130,21 @@ export class TicketUpdateComponent implements OnInit {
 
   trackEntityMById(_index: number, item: IEntityM): number {
     return item.id!;
+  }
+
+  showHideContributor(): void {
+    this.showContributor = !this.showContributor;
+    
+  }
+
+  showHideDirection(): void {
+    this.showDirection = !this.showDirection;
+    
+  }
+
+  showHideEntity(): void {
+    this.showEntity = !this.showEntity;
+    
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITicket>>): void {
@@ -144,6 +187,11 @@ export class TicketUpdateComponent implements OnInit {
       directionRegionale: ticket.directionRegionale,
       category: ticket.category,
       entity: ticket.entity,
+      attachContentType: ticket.attachContentType,
+      attach: ticket.attach,    
+      showContributor: ticket.contributorVisibility,
+      showDirection : ticket.directionVisibility,
+      showEntity : ticket.entityVisibility,
     });
 
     this.directionRegionalesCollection = this.directionRegionaleService.addDirectionRegionaleToCollectionIfMissing(
@@ -201,9 +249,9 @@ export class TicketUpdateComponent implements OnInit {
         : undefined,
       closedDate: this.editForm.get(['closedDate'])!.value ? dayjs(this.editForm.get(['closedDate'])!.value, DATE_TIME_FORMAT) : undefined,
       contributor: this.editForm.get(['contributor'])!.value,
-      contributorVisibility: this.editForm.get(['contributorVisibility'])!.value,
-      entityVisibility: this.editForm.get(['entityVisibility'])!.value,
-      directionVisibility: this.editForm.get(['directionVisibility'])!.value,
+      contributorVisibility: this.editForm.get(['showContributor'])!.value,
+      entityVisibility: this.editForm.get(['showEntity'])!.value,
+      directionVisibility: this.editForm.get(['showDirection'])!.value,
       centralAnimator: this.editForm.get(['centralAnimator'])!.value,
       centralRelay: this.editForm.get(['centralRelay'])!.value,
       regionalRelay: this.editForm.get(['regionalRelay'])!.value,
@@ -213,6 +261,11 @@ export class TicketUpdateComponent implements OnInit {
       directionRegionale: this.editForm.get(['directionRegionale'])!.value,
       category: this.editForm.get(['category'])!.value,
       entity: this.editForm.get(['entity'])!.value,
+      attachContentType: this.editForm.get(['attachContentType'])!.value,
+      attach: this.editForm.get(['attach'])!.value,
+    
+      
     };
   }
+
 }

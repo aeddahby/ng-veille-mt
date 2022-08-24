@@ -2,7 +2,7 @@
   "generator-jhipster": {
     "applicationType": "monolith",
     "authenticationType": "jwt",
-    "baseName": "ng_veille_mt",
+    "baseName": "",
     "blueprints": [],
     "buildTool": "maven",
     "cacheProvider": "ehcache",
@@ -18,7 +18,7 @@
     "enableGradleEnterprise": false,
     "enableHibernateCache": true,
     "enableTranslation": false,
-    "entities": ["Ticket", "Attachment", "DirectionRegionale", "Category", "EntityM"],
+    "entities": ["", "Attachment", "DirectionRegionale", "Category", "EntityM"],
     "entitySuffix": "",
     "jhiPrefix": "jhi",
     "jhipsterVersion": "7.8.1",

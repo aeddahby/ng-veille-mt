@@ -27,6 +27,8 @@ export interface ITicket {
   category?: ICategory | null;
   entity?: IEntityM | null;
   attachments?: IAttachment[] | null;
+  attachContentType?: string | null;
+  attach?: string | null;
 }
 
 export class Ticket implements ITicket {
@@ -50,8 +52,10 @@ export class Ticket implements ITicket {
     public directionRegionale?: IDirectionRegionale | null,
     public category?: ICategory | null,
     public entity?: IEntityM | null,
-    public attachments?: IAttachment[] | null
-  ) {
+    public attachments?: IAttachment[] | null,
+    public attachContentType?: string | null,
+    public attach?: string | null,
+    ) {
     this.contributorVisibility = this.contributorVisibility ?? false;
     this.entityVisibility = this.entityVisibility ?? false;
     this.directionVisibility = this.directionVisibility ?? false;
