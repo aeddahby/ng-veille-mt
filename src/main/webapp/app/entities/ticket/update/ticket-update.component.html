@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading" [hidden]="editForm.get('id')!.value == null">Remontée</h2>
+      <h2 id="jhi-ticket-heading" data-cy="TicketCreateUpdateHeading">Remontée</h2>
 
       <div>
         <jhi-alert-error></jhi-alert-error>
@@ -12,13 +12,32 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_object">Object</label>
-          <input type="text" class="form-control" name="object" id="field_object" data-cy="object" formControlName="object" />
+          <label class="form-label" for="field_object">Objet</label>
+          <input
+            type="text"
+            *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_CONTRIBUTEUR']"
+            class="form-control"
+            name="object"
+            id="field_object"
+            data-cy="object"
+            formControlName="object"
+          />
+          <input
+            type="text"
+            *jhiHasAnyAuthority="['ROLE_RELAIS_REGIONAL', 'ROLE_RELAIS_CENTRAL']"
+            [readonly]="true"
+            class="form-control"
+            name="object"
+            id="field_object"
+            data-cy="object"
+            formControlName="object"
+          />
         </div>
 
         <div class="row mb-3">
           <label class="form-label" for="field_description">Description</label>
           <input
+            *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_CONTRIBUTEUR']"
             type="text"
             class="form-control"
             name="description"
@@ -26,38 +45,50 @@
             data-cy="description"
             formControlName="description"
           />
-        </div>  
-      <div>
-        <div class="row mb-3">
-          <label class="form-label" for="field_attach">Attach</label>
-          <div>
-            <div *ngIf="editForm.get('attach')!.value" class="form-text text-danger clearfix">
-              <a class="pull-start" (click)="openFile(editForm.get('attach')!.value, editForm.get('attachContentType')!.value)">open</a
-              ><br />
-              <span class="pull-start">{{ editForm.get('attachContentType')!.value }}, {{ byteSize(editForm.get('attach')!.value) }}</span>
-              <button
-                type="button"
-                (click)="editForm.patchValue({ attach: null }); editForm.patchValue({ attachContentType: null })"
-                class="btn btn-secondary btn-xs pull-end"
-              >
-                <fa-icon icon="times"></fa-icon>
-              </button>
-            </div>
-            <input type="file" id="file_attach" data-cy="attach" (change)="setFileData($event, 'attach', false)" />
-          </div>
-          <input type="hidden" class="form-control" name="attach" id="field_attach" data-cy="attach" formControlName="attach" />
           <input
-            type="hidden"
+            *jhiHasAnyAuthority="['ROLE_RELAIS_REGIONAL', 'ROLE_RELAIS_CENTRAL']"
+            [readonly]="true"
+            type="text"
             class="form-control"
-            name="attachContentType"
-            id="field_attachContentType"
-            formControlName="attachContentType"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
           />
         </div>
-      </div>
+        <div>
+          <div class="row mb-3">
+            <label class="form-label" for="field_attach">Attachement</label>
+            <div>
+              <div *ngIf="editForm.get('attach')!.value" class="form-text text-danger clearfix">
+                <a class="pull-start" (click)="openFile(editForm.get('attach')!.value, editForm.get('attachContentType')!.value)">open</a
+                ><br />
+                <span class="pull-start"
+                  >{{ editForm.get('attachContentType')!.value }}, {{ byteSize(editForm.get('attach')!.value) }}</span
+                >
+                <button
+                  type="button"
+                  (click)="editForm.patchValue({ attach: null }); editForm.patchValue({ attachContentType: null })"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+              <input type="file" id="file_attach" data-cy="attach" (change)="setFileData($event, 'attach', false)" />
+            </div>
+            <input type="hidden" class="form-control" name="attach" id="field_attach" data-cy="attach" formControlName="attach" />
+            <input
+              type="hidden"
+              class="form-control"
+              name="attachContentType"
+              id="field_attachContentType"
+              formControlName="attachContentType"
+            />
+          </div>
+        </div>
 
-      <div>
-<!--
+        <div>
+          <!--
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
         </button>
@@ -71,8 +102,8 @@
           <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
         </button>
 -->
-      </div>  
-      <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
+        </div>
+        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'" [hidden]="editForm.get('id')!.value == null">
           <label class="form-label" for="field_creationDate">Date création</label>
           <div class="d-flex">
             <input
@@ -116,7 +147,7 @@
             />
           </div>
         </div>
-<!--*jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'"-->
+        <!--*jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'"-->
         <div class="row mb-3" hidden>
           <label class="form-label" for="field_entityVisibility">Entity Visibility</label>
           <input
@@ -141,30 +172,30 @@
           />
         </div>
         <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
-          <label class="form-label" for="field_contributor">Contributeur :
-            <button type="button" class="btn btn-sm" (click)="showContributor = !showContributor">
-              {{ showContributor ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon> 
-            </button> 
+          <label class="form-label" for="field_contributor"
+            >Contributeur
+            <button type="button" class="btn btn-sm" (click)="showHideContributor()" [hidden]="editForm.get('id')!.value == null">
+              : {{ showContributor ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon>
+            </button>
           </label>
-          
+
           <input
             type="text"
             class="form-control"
             name="contributor"
             id="field_contributor"
             data-cy="contributor"
-            formControlName="contributor" 
+            formControlName="contributor"
           />
-        <!-- <span class="input-group-btn">
+          <!-- <span class="input-group-btn">
             <button type="button" class="btn btn-default" (click)="showContributor = !showContributor">
               {{ showContributor ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon> 
             </button> 
                         
-          </span>--> 
-
+          </span>-->
         </div>
 
-        <div class="row mb-3"  hidden>
+        <div class="row mb-3" hidden>
           <label class="form-label" for="field_centralAnimator">Central Animator</label>
           <input
             type="text"
@@ -176,8 +207,8 @@
           />
         </div>
 
-        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
-          <label class="form-label" for="field_centralRelay">Relais Centrale</label>
+        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_centralRelay">Relais Central</label>
           <input
             type="text"
             class="form-control"
@@ -188,8 +219,8 @@
           />
         </div>
 
-        <div class="row mb-3"  hidden>
-          <label class="form-label" for="field_regionalRelay">Regional Relay</label>
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
+          <label class="form-label" for="field_regionalRelay">Relais regional</label>
           <input
             type="text"
             class="form-control"
@@ -200,15 +231,19 @@
           />
         </div>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null" [hidden]="editForm.get('id')!.value == null">
+        <div
+          class="row mb-3"
+          [hidden]="editForm.get('id')!.value == null"
+          *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_RELAIS_CENTRAL', 'ROLE_RELAIS_REGIONAL']"
+        >
           <label class="form-label" for="field_stateTicket">Etat</label>
-          <select class="form-control" name="stateTicket" formControlName="stateTicket" id="field_stateTicket" data-cy="stateTicket" >
+          <select class="form-control" name="stateTicket" formControlName="stateTicket" id="field_stateTicket" data-cy="stateTicket">
             <option [ngValue]="null"></option>
             <option *ngFor="let stateTicket of stateTicketValues" [value]="stateTicket">{{ stateTicket }}</option>
           </select>
         </div>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
           <label class="form-label" for="field_statusTicket">Status</label>
           <select class="form-control" name="statusTicket" formControlName="statusTicket" id="field_statusTicket" data-cy="statusTicket">
             <option [ngValue]="null"></option>
@@ -216,13 +251,13 @@
           </select>
         </div>
 
-        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
-          <label class="form-label" for="field_directionRegionale">Direction Regionale :
+        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_directionRegionale"
+            >Direction Regionale :
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" (click)="showDirection = !showDirection">
-                {{ showDirection ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon> 
-              </button> 
-                          
+                {{ showDirection ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon>
+              </button>
             </span>
           </label>
           <select
@@ -248,7 +283,31 @@
 
         <div class="row mb-3">
           <label class="form-label" for="field_category">Catégorie</label>
-          <select class="form-control" id="field_category" data-cy="category" name="category" formControlName="category">
+          <select
+            class="form-control"
+            *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_CONTRIBUTEUR']"
+            id="field_category"
+            data-cy="category"
+            name="category"
+            formControlName="category"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="categoryOption.id === editForm.get('category')!.value?.id ? editForm.get('category')!.value : categoryOption"
+              *ngFor="let categoryOption of categoriesCollection; trackBy: trackCategoryById"
+            >
+              {{ categoryOption.name }}
+            </option>
+          </select>
+          <select
+            class="form-control"
+            *jhiHasAnyAuthority="['ROLE_RELAIS_CENTRAL', 'ROLE_RELAIS_REGIONAL']"
+            [attr.disabled]="true"
+            id="field_category"
+            data-cy="category"
+            name="category"
+            formControlName="category"
+          >
             <option [ngValue]="null"></option>
             <option
               [ngValue]="categoryOption.id === editForm.get('category')!.value?.id ? editForm.get('category')!.value : categoryOption"
@@ -259,13 +318,13 @@
           </select>
         </div>
 
-        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
-          <label class="form-label" for="field_entity">Entité :
+        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_entity"
+            >Entité :
             <span class="input-group-btn">
               <button type="button" class="btn btn-default" (click)="showEntity = !showEntity">
-                {{ showEntity ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon> 
-              </button> 
-                          
+                {{ showEntity ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon>
+              </button>
             </span>
           </label>
           <select class="form-control" id="field_entity" data-cy="entity" name="entity" formControlName="entity">
@@ -279,21 +338,24 @@
           </select>
         </div>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
-      
-            <label class="form-label" for="field_pertinence"> Pertinence: </label>
-            <input
+        <div
+          class="row mb-3"
+          [hidden]="editForm.get('id')!.value == null"
+          *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'"
+          [hidden]="editForm.get('id')!.value == null"
+        >
+          <label class="form-label" for="field_pertinence"> Pertinence: </label>
+          <input
             type="checkbox"
             class="form-check"
             name="pertinence"
             id="field_pertinence"
             data-cy="pertinence"
-            formControlName="pertinence"/>
-         
+            formControlName="pertinence"
+          />
         </div>
       </div>
 
-      
       <div>
         <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
           <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>

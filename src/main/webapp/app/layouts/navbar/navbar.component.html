@@ -19,8 +19,7 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="account !== null">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-         <a class="nav-link" routerLink="ticket" (click)="collapseNavbar()">
-         
+          <a class="nav-link" routerLink="ticket" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="home"></fa-icon>
               <span>Accueil</span>
@@ -28,6 +27,15 @@
           </a>
         </li>
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" routerLink="statistique" (click)="collapseNavbar()">
+            <span>
+              <fa-icon icon="tachometer-alt"></fa-icon>
+              <span>Statistiques</span>
+            </span>
+          </a>
+        </li>
+        <!-- 
         <li
           *ngSwitchCase="true"
           ngbDropdown
@@ -39,7 +47,7 @@
           <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
             <span>
               <fa-icon icon="th-list"></fa-icon>
-              <span>Remontées</span>
+              <span>Statistique</span>
             </span>
           </a>
           <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
@@ -79,7 +87,8 @@
                 <span>Statistiques</span>
               </a>
             </li>
-          <!--  <li>
+          -->
+        <!--  <li>
               <a
                 class="dropdown-item"
                 routerLink="direction-regionale"
@@ -115,11 +124,12 @@
                 <span>Entity M</span>
               </a>
             </li>
-             jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+             jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here
           </ul>
         </li>
+      -->
         <li
-          *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_ANIMATEUR_CENTRAL']" 
+          *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_ANIMATEUR_CENTRAL']"
           ngbDropdown
           class="nav-item dropdown pointer"
           display="dynamic"
@@ -164,16 +174,22 @@
               </a>
             </li>
             <li *ngIf="openAPIEnabled">
-              <a class="dropdown-item" routerLink="admin/docs" routerLinkActive="active" (click)="collapseNavbar()" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+              <a
+                class="dropdown-item"
+                routerLink="admin/docs"
+                routerLinkActive="active"
+                (click)="collapseNavbar()"
+                *jhiHasAnyAuthority="'ROLE_ADMIN'"
+              >
                 <fa-icon icon="book" [fixedWidth]="true"></fa-icon>
                 <span *jhiHasAnyAuthority="'ROLE_ADMIN'">API</span>
               </a>
             </li>
             <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
-            <li *ngIf="!inProduction" >
+            <li *ngIf="!inProduction">
               <a class="dropdown-item" href="./h2-console/" target="_tab" (click)="collapseNavbar()" *jhiHasAnyAuthority="'ROLE_ADMIN'">
                 <fa-icon icon="database" [fixedWidth]="true"></fa-icon>
-                <span >Database</span>
+                <span>Database</span>
               </a>
             </li>
           </ul>

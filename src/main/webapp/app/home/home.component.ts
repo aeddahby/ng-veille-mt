@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => (this.account = account));
+    this.router.navigate(['/login']);
   }
 
   login(): void {
