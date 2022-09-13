@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild([
       {
         path: 'ticket',
-        data: { pageTitle: 'Tickets' },
+        data: { pageTitle: 'Remontées' },
         loadChildren: () => import('./ticket/ticket.module').then(m => m.TicketModule),
       },
       {
@@ -28,6 +28,11 @@ import { RouterModule } from '@angular/router';
         path: 'entity-m',
         data: { pageTitle: 'EntityMS' },
         loadChildren: () => import('./entity-m/entity-m.module').then(m => m.EntityMModule),
+      },
+      {
+        path: 'statistique',
+        data: { pageTitle: 'Statistique' },
+        loadChildren: () => import('./statistics/statistic.module').then(m => m.StatisticModule),
       },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),

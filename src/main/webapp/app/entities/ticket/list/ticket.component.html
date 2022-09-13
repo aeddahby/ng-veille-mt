@@ -2,7 +2,7 @@
   <h2 id="page-heading" data-cy="TicketHeading">
     <span>Remontées</span>
 
-    <div class="d-flex justify-content-end" *jhiHasAnyAuthority="['ROLE_CONTRIBUTEUR', 'ROLE_ANIMATEUR_CENTRAL']">
+    <div class="d-flex justify-content-end" *jhiHasAnyAuthority="['ROLE_CONTRIBUTEUR', 'ROLE_ANIMATEUR_CENTRAL', 'ROLE_RELAIS_CENTRAL']">
       <!-- <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span>Actualiser</span>
@@ -47,7 +47,7 @@
           <th scope="col" jhiSortBy="regionalRelay"><span>Regional Relay</span> <fa-icon icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="stateTicket"><span>Etat</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="statusTicket"><span>Statut</span><fa-icon icon="sort"></fa-icon></th>
-          <!--<th scope="col" jhiSortBy="pertinence"><span>Pertinence</span> <fa-icon icon="sort"></fa-icon></th>-->
+          <th scope="col" jhiSortBy="pertinence"><span>Pertinence</span> <fa-icon icon="sort"></fa-icon></th>
           <!--<th scope="col" jhiSortBy="directionRegionale.name"><span>Direction Regionale</span> <fa-icon icon="sort"></fa-icon></th>-->
           <th scope="col" jhiSortBy="category.name"><span>Categorie</span> <fa-icon icon="sort"></fa-icon></th>
           <!--<th scope="col" jhiSortBy="entity.title"><span>Entité</span> <fa-icon icon="sort"></fa-icon></th>-->
@@ -73,7 +73,7 @@
           <td>{{ ticket.regionalRelay }}</td>-->
           <td>{{ ticket.stateTicket }}</td>
           <td>{{ ticket.statusTicket }}</td>
-          <!--<td>{{ ticket.pertinence }}</td>-->
+          <td>{{ ticket.pertinence }}</td>
           <!--<td>
             <div *ngIf="ticket.directionRegionale">
               <a [routerLink]="['/direction-regionale', ticket.directionRegionale?.id, 'view']">{{ ticket.directionRegionale?.name }}</a>

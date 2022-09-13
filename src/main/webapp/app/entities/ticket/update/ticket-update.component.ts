@@ -31,9 +31,6 @@ export class TicketUpdateComponent implements OnInit {
   isSaving = false;
   stateTicketValues = Object.keys(StateTicket);
   statusValues = Object.keys(Status);
-  showContributor = true;
-  showDirection = true;
-  showEntity = true;
   directionRegionalesCollection: IDirectionRegionale[] = [];
   categoriesCollection: ICategory[] = [];
   entitiesCollection: IEntityM[] = [];
@@ -58,10 +55,7 @@ export class TicketUpdateComponent implements OnInit {
     category: [],
     entity: [],
     attachContentType: [],
-    attach: [],  
-    showContributor: [],
-    showDirection: [],
-    showEntity: [],
+    attach: [],
   });
 
   constructor(
@@ -73,7 +67,7 @@ export class TicketUpdateComponent implements OnInit {
     protected fb: FormBuilder,
     protected attachmentService: AttachmentService,
     protected dataUtils: DataUtils,
-    protected eventManager: EventManager,
+    protected eventManager: EventManager
   ) {}
 
   ngOnInit(): void {
@@ -83,6 +77,9 @@ export class TicketUpdateComponent implements OnInit {
         ticket.creationDate = today;
         ticket.modificationDate = today;
         ticket.closedDate = today;
+        ticket.contributorVisibility = true;
+        ticket.directionVisibility = true;
+        ticket.entityVisibility = true;
       }
 
       this.updateForm(ticket);
@@ -132,21 +129,6 @@ export class TicketUpdateComponent implements OnInit {
     return item.id!;
   }
 
-  showHideContributor(): void {
-    this.showContributor = !this.showContributor;
-    
-  }
-
-  showHideDirection(): void {
-    this.showDirection = !this.showDirection;
-    
-  }
-
-  showHideEntity(): void {
-    this.showEntity = !this.showEntity;
-    
-  }
-
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITicket>>): void {
     result.pipe(finalize(() => this.onSaveFinalize())).subscribe({
       next: () => this.onSaveSuccess(),
@@ -188,10 +170,7 @@ export class TicketUpdateComponent implements OnInit {
       category: ticket.category,
       entity: ticket.entity,
       attachContentType: ticket.attachContentType,
-      attach: ticket.attach,    
-      showContributor: ticket.contributorVisibility,
-      showDirection : ticket.directionVisibility,
-      showEntity : ticket.entityVisibility,
+      attach: ticket.attach,
     });
 
     this.directionRegionalesCollection = this.directionRegionaleService.addDirectionRegionaleToCollectionIfMissing(
@@ -249,9 +228,9 @@ export class TicketUpdateComponent implements OnInit {
         : undefined,
       closedDate: this.editForm.get(['closedDate'])!.value ? dayjs(this.editForm.get(['closedDate'])!.value, DATE_TIME_FORMAT) : undefined,
       contributor: this.editForm.get(['contributor'])!.value,
-      contributorVisibility: this.editForm.get(['showContributor'])!.value,
-      entityVisibility: this.editForm.get(['showEntity'])!.value,
-      directionVisibility: this.editForm.get(['showDirection'])!.value,
+      contributorVisibility: this.editForm.get(['contributorVisibility'])!.value,
+      directionVisibility: this.editForm.get(['directionVisibility'])!.value,
+      entityVisibility: this.editForm.get(['entityVisibility'])!.value,
       centralAnimator: this.editForm.get(['centralAnimator'])!.value,
       centralRelay: this.editForm.get(['centralRelay'])!.value,
       regionalRelay: this.editForm.get(['regionalRelay'])!.value,
@@ -263,9 +242,6 @@ export class TicketUpdateComponent implements OnInit {
       entity: this.editForm.get(['entity'])!.value,
       attachContentType: this.editForm.get(['attachContentType'])!.value,
       attach: this.editForm.get(['attach'])!.value,
-    
-      
     };
   }
-
 }

@@ -26,8 +26,13 @@
             </span>
           </a>
         </li>
-        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here-->
+        <li
+          *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_ANIMATEUR_CENTRAL']"
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           <a class="nav-link" routerLink="statistique" (click)="collapseNavbar()">
             <span>
               <fa-icon icon="tachometer-alt"></fa-icon>
@@ -35,6 +40,35 @@
             </span>
           </a>
         </li>
+        <!-- <li *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_ANIMATEUR_CENTRAL']"
+        ngbDropdown
+        class="nav-item dropdown pointer"
+        display="dynamic"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu" data-cy="adminMenu">
+          <span>
+            <fa-icon icon="tachometer-alt"></fa-icon>
+            <span>Statistiques</span>
+          </span>
+        </a>
+        <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
+          <li>
+            <a class="dropdown-item" routerLink="statistique" routerLinkActive="active" (click)="collapseNavbar()">
+              <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+              <span>Tableux de performences</span>
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item" routerLink="statistique" routerLinkActive="active" (click)="collapseNavbar()">
+              <fa-icon icon="users" [fixedWidth]="true"></fa-icon>
+              <span>Graphes de performences</span>
+            </a>
+          </li>
+          </ul>
+          </li>
+      -->
         <!-- 
         <li
           *ngSwitchCase="true"
@@ -221,18 +255,6 @@
               >
                 <fa-icon icon="wrench" [fixedWidth]="true"></fa-icon>
                 <span>Settings</span>
-              </a>
-            </li>
-            <li *ngSwitchCase="true">
-              <a
-                class="dropdown-item"
-                routerLink="account/password"
-                routerLinkActive="active"
-                (click)="collapseNavbar()"
-                data-cy="passwordItem"
-              >
-                <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
-                <span>Password</span>
               </a>
             </li>
             <li *ngSwitchCase="true">

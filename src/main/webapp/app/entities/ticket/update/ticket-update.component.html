@@ -6,9 +6,26 @@
       <div>
         <jhi-alert-error></jhi-alert-error>
 
-        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+        <div class="row mb-3" style="display: -webkit-inline-flex" [hidden]="editForm.get('id')!.value == null">
           <label class="form-label" for="field_id">ID</label>
           <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+        <div
+          class="row mb-3"
+          style="display: -webkit-inline-flex"
+          [hidden]="editForm.get('id')!.value == null"
+          *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'"
+          [hidden]="editForm.get('id')!.value == null"
+        >
+          <label class="form-label" for="field_pertinence"> Pertinence: </label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="pertinence"
+            id="field_pertinence"
+            data-cy="pertinence"
+            formControlName="pertinence"
+          />
         </div>
 
         <div class="row mb-3">
@@ -172,13 +189,17 @@
           />
         </div>
         <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'">
-          <label class="form-label" for="field_contributor"
-            >Contributeur
-            <button type="button" class="btn btn-sm" (click)="showHideContributor()" [hidden]="editForm.get('id')!.value == null">
-              : {{ showContributor ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon>
-            </button>
-          </label>
-
+          <div class="form-switch form-check">
+            <label class="form-check-label" for="field_contributor">Contributeur </label>
+            <input
+              class="form-check-input"
+              [disabled]="editForm.get('id')!.value == null"
+              type="checkbox"
+              id="contributorVisibility"
+              name="contributorVisibility"
+              formControlName="contributorVisibility"
+            />
+          </div>
           <input
             type="text"
             class="form-control"
@@ -187,12 +208,6 @@
             data-cy="contributor"
             formControlName="contributor"
           />
-          <!-- <span class="input-group-btn">
-            <button type="button" class="btn btn-default" (click)="showContributor = !showContributor">
-              {{ showContributor ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon> 
-            </button> 
-                        
-          </span>-->
         </div>
 
         <div class="row mb-3" hidden>
@@ -252,14 +267,17 @@
         </div>
 
         <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" for="field_directionRegionale"
-            >Direction Regionale :
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-default" (click)="showDirection = !showDirection">
-                {{ showDirection ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon>
-              </button>
-            </span>
-          </label>
+          <div class="form-switch form-check">
+            <label class="form-check-label" for="field_direction">Direction Regionale </label>
+            <input
+              class="form-check-input"
+              [disabled]="editForm.get('id')!.value == null"
+              type="checkbox"
+              id="directionVisibility"
+              name="directionVisibility"
+              formControlName="directionVisibility"
+            />
+          </div>
           <select
             class="form-control"
             id="field_directionRegionale"
@@ -319,14 +337,17 @@
         </div>
 
         <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-label" for="field_entity"
-            >Entité :
-            <span class="input-group-btn">
-              <button type="button" class="btn btn-default" (click)="showEntity = !showEntity">
-                {{ showEntity ? 'visible' : 'invisible' }} <fa-icon icon="eye"></fa-icon>
-              </button>
-            </span>
-          </label>
+          <div class="form-switch form-check">
+            <label class="form-check-label" for="field_entity">Entité </label>
+            <input
+              class="form-check-input"
+              [disabled]="editForm.get('id')!.value == null"
+              type="checkbox"
+              id="entityVisibility"
+              name="entityVisibility"
+              formControlName="entityVisibility"
+            />
+          </div>
           <select class="form-control" id="field_entity" data-cy="entity" name="entity" formControlName="entity">
             <option [ngValue]="null"></option>
             <option
@@ -336,23 +357,6 @@
               {{ entityMOption.title }}
             </option>
           </select>
-        </div>
-
-        <div
-          class="row mb-3"
-          [hidden]="editForm.get('id')!.value == null"
-          *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'"
-          [hidden]="editForm.get('id')!.value == null"
-        >
-          <label class="form-label" for="field_pertinence"> Pertinence: </label>
-          <input
-            type="checkbox"
-            class="form-check"
-            name="pertinence"
-            id="field_pertinence"
-            data-cy="pertinence"
-            formControlName="pertinence"
-          />
         </div>
       </div>
 
