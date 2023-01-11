@@ -17,7 +17,7 @@
           *jhiHasAnyAuthority="'ROLE_ANIMATEUR_CENTRAL'"
           [hidden]="editForm.get('id')!.value == null"
         >
-          <label class="form-label" for="field_pertinence"> Pertinence: </label>
+          <label class="form-label" for="field_pertinence"> Pertinence</label>
           <input
             type="checkbox"
             class="form-check"
@@ -32,7 +32,7 @@
           <label class="form-label" for="field_object">Objet</label>
           <input
             type="text"
-            *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_CONTRIBUTEUR']"
+            *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_CONTRIBUTEUR', 'ROLE_RELAIS_CENTRAL']"
             class="form-control"
             name="object"
             id="field_object"
@@ -41,7 +41,7 @@
           />
           <input
             type="text"
-            *jhiHasAnyAuthority="['ROLE_RELAIS_REGIONAL', 'ROLE_RELAIS_CENTRAL']"
+            *jhiHasAnyAuthority="['ROLE_RELAIS_REGIONAL']"
             [readonly]="true"
             class="form-control"
             name="object"
@@ -54,7 +54,7 @@
         <div class="row mb-3">
           <label class="form-label" for="field_description">Description</label>
           <input
-            *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_CONTRIBUTEUR']"
+            *jhiHasAnyAuthority="['ROLE_ANIMATEUR_CENTRAL', 'ROLE_CONTRIBUTEUR', 'ROLE_RELAIS_CENTRAL']"
             type="text"
             class="form-control"
             name="description"
@@ -63,7 +63,7 @@
             formControlName="description"
           />
           <input
-            *jhiHasAnyAuthority="['ROLE_RELAIS_REGIONAL', 'ROLE_RELAIS_CENTRAL']"
+            *jhiHasAnyAuthority="['ROLE_RELAIS_REGIONAL']"
             [readonly]="true"
             type="text"
             class="form-control"
@@ -73,6 +73,17 @@
             formControlName="description"
           />
         </div>
+        <div class="row mb-3" *jhiHasAnyAuthority="'ROLE_RELAIS_CENTRAL'">
+          <label class="form-label" for="field_commentary">Commentaire</label>
+          <textarea
+            class="form-control"
+            name="commentary"
+            id="field_commentary"
+            data-cy="commentary"
+            formControlName="commentary"
+          ></textarea>
+        </div>
+
         <div>
           <div class="row mb-3">
             <label class="form-label" for="field_attach">Attachement</label>
@@ -91,7 +102,7 @@
                   <fa-icon icon="times"></fa-icon>
                 </button>
               </div>
-              <input type="file" id="file_attach" data-cy="attach" (change)="setFileData($event, 'attach', false)" />
+              <input type="file" multiple id="file_attach" data-cy="attach" (change)="setFileData($event, 'attach', false)" />
             </div>
             <input type="hidden" class="form-control" name="attach" id="field_attach" data-cy="attach" formControlName="attach" />
             <input

@@ -1,206 +1,250 @@
 <div class="container-fluid">
   <div class="ods-box" style="width: 80%">
-    <div>
-      <a class="tab"><h5>Pertinence des remontées par axe d'analyse</h5></a>
-      <table class="table table-striped" style="border-style: solid">
-        <tr>
-          <th scope="col" colspan="1"></th>
-          <th scope="col" colspan="3" style="border-width: 1px; text-align: center">Volume des remontées</th>
-          <th scope="col" colspan="2" style="border-width: 1px; text-align: center">Répartitions des remontées (%)</th>
-        </tr>
-        <tr>
-          <th></th>
-          <th style="border-width: 1px; text-align: center">Pertinente</th>
-          <th style="border-width: 1px; text-align: center">Non pertinente</th>
-          <th style="border-width: 1px; text-align: center">Total</th>
-          <th style="border-width: 1px; text-align: center">Pertinente (%)</th>
-          <th style="border-width: 1px; text-align: center">Total (%)</th>
-        </tr>
-        <tbody>
-          <tr *ngFor="let tab of table1; index as i">
-            <th width="300" scope="row" colspan="1">{{ tab.col1 }}</th>
+    <form name="editForm" role="form" novalidate (ngSubmit)="filter()" [formGroup]="editForm">
+      <div style="display: inline-table">
+        <label class="form-label" for="field_startDate">Date début</label>
+        <div class="d-flex">
+          <input
+            id="field_startDate"
+            data-cy="startDate"
+            type="date"
+            class="form-control"
+            name="startDate"
+            formControlName="startDate"
+            placeholder="YYYY-MM-DD"
+          />
+        </div>
+        <div style="display: inline-table">
+          <label class="form-label" for="field_finishDate">Date fin</label>
+          <div class="d-flex">
+            <input
+              id="field_finishDate"
+              data-cy="finishDate"
+              type="date"
+              class="form-control"
+              name="finishDate"
+              formControlName="finishDate"
+              placeholder="YYYY-MM-DD"
+            />
+          </div>
+        </div>
+        <br />
+        <div style="height: max-content; left: 80%">
+          <button
+            type="submit"
+            (click)="filter()"
+            id="jh-create-entity"
+            data-cy="entityCreateButton"
+            class="btn btn-primary jh-create-entity create-ticket"
+          >
+            <span> Filtrer</span>
+          </button>
+        </div>
+        <br />
+        <br />
+        <div>
+          <a class="tab"><h5>Pertinence des remontées par axe d'analyse</h5></a>
+          <table class="table table-striped" style="border-style: solid">
+            <tr>
+              <th scope="col" colspan="1"></th>
+              <th scope="col" colspan="3" style="border-width: 1px; text-align: center">Volume des remontées</th>
+              <th scope="col" colspan="2" style="border-width: 1px; text-align: center">Répartitions des remontées (%)</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th style="border-width: 1px; text-align: center">Pertinente</th>
+              <th style="border-width: 1px; text-align: center">Non pertinente</th>
+              <th style="border-width: 1px; text-align: center">Total</th>
+              <th style="border-width: 1px; text-align: center">Pertinente (%)</th>
+              <th style="border-width: 1px; text-align: center">Total (%)</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let tab of table1; index as i">
+                <th width="300" scope="row" colspan="1">{{ tab.col1 }}</th>
 
-            <td style="border-width: 1px">
-              {{ tab.col2 | number }}
-            </td>
-            <td style="border-width: 1px">{{ tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ (tab.col2 * 100) / (tab.col2 + tab.col3) | number }} %</td>
-            <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / ttotal1 | number }} %</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                <td style="border-width: 1px">
+                  {{ tab.col2 | number }}
+                </td>
+                <td style="border-width: 1px">{{ tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ (tab.col2 * 100) / (tab.col2 + tab.col3) | number }} %</td>
+                <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / ttotal1 | number }} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 80%">
+        <div>
+          <a class="tab"><h5>Pertinence des remontées par DR</h5></a>
+          <table class="table table-striped" style="border-style: solid">
+            <tr>
+              <th scope="col" colspan="1" width="30"></th>
+              <th scope="col" colspan="3" width="40" style="border-width: 1px; text-align: center">Volume des remontées</th>
+              <th scope="col" colspan="2" width="40" style="border-width: 1px; text-align: center">Répartitions des remontées (%)</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th style="border-width: 1px; text-align: center">Pertinente</th>
+              <th style="border-width: 1px; text-align: center">Non pertinente</th>
+              <th style="border-width: 1px; text-align: center">Total</th>
+              <th style="border-width: 1px; text-align: center">Pertinente (%)</th>
+              <th style="border-width: 1px; text-align: center">Total (%)</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let tab of table2; index as i">
+                <th width="300" scope="row">{{ tab.col1 }}</th>
+
+                <td style="border-width: 1px">
+                  {{ tab.col2 | number }}
+                </td>
+                <td style="border-width: 1px">{{ tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ (tab.col2 * 100) / (tab.col2 + tab.col3) | number }} %</td>
+                <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / ttotal1 | number }} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 80%">
+        <div>
+          <a class="tab"><h5>Pertinence des remontées par Contributeur</h5></a>
+          <table class="table table-striped" style="border-style: solid">
+            <tr>
+              <th scope="col" colspan="1" width="30"></th>
+              <th scope="col" colspan="3" width="40" style="border-width: 1px; text-align: center">Volume des remontées</th>
+              <th scope="col" colspan="2" width="40" style="border-width: 1px; text-align: center">Répartitions des remontées (%)</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th style="border-width: 1px; text-align: center">Pertinente</th>
+              <th style="border-width: 1px; text-align: center">Non pertinente</th>
+              <th style="border-width: 1px; text-align: center">Total</th>
+              <th style="border-width: 1px; text-align: center">Pertinente (%)</th>
+              <th style="border-width: 1px; text-align: center">Total (%)</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let tab of table3; index as i">
+                <th width="200" scope="row">{{ tab.col1 }}</th>
+
+                <td style="border-width: 1px">
+                  {{ tab.col2 | number }}
+                </td>
+                <td style="border-width: 1px">{{ tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ (tab.col2 * 100) / (tab.col2 + tab.col3) | number }} %</td>
+                <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / ttotal1 | number }} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 80%">
+        <div>
+          <a class="tab"><h5>Volume des remontées affectées par direction</h5></a>
+
+          <table class="table table-striped" style="border-style: solid">
+            <tr>
+              <th scope="col" colspan="1" width="30"></th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées affectées</th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume globales des remontées</th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Répartitions (%)</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let tab of table4; index as i">
+                <th scope="row">{{ tab.col1 }}</th>
+
+                <td style="border-width: 1px">
+                  {{ tab.col2 | number }}
+                </td>
+                <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / total4 | number }} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 80%">
+        <div>
+          <a class="tab"><h5>Volume des remontées traitées par direction</h5></a>
+
+          <table class="table table-striped" style="border-style: solid">
+            <tr>
+              <th scope="col" colspan="1" width="30"></th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées affectées</th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées traitées</th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Taux de clôtures (%)</th>
+            </tr>
+            <tbody>
+              <tr *ngFor="let tab of table4; index as i">
+                <th scope="row">{{ tab.col1 }}</th>
+
+                <td style="border-width: 1px">
+                  {{ tab.col2 | number }}
+                </td>
+                <td style="border-width: 1px">{{ tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ (tab.col3 * 100) / total4 | number }} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 80%">
+        <div>
+          <a class="tab"><h5>volume des remontées clôturées par direction</h5></a>
+
+          <table class="table table-striped" style="border-style: solid">
+            <tr>
+              <th scope="col" colspan="1" width="30"></th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées traitées</th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées clôturées</th>
+              <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Taux de clôtures (%)</th>
+            </tr>
+
+            <tbody>
+              <tr *ngFor="let tab of table4; index as i">
+                <th scope="row">{{ tab.col1 }}</th>
+                <td style="border-width: 1px">{{ tab.col2 | number }}</td>
+                <td style="border-width: 1px">{{ tab.col3 | number }}</td>
+                <td style="border-width: 1px">{{ (tab.col3 * 100) / total4 | number }} %</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 40%">
+        <div>
+          <h5>Répartition par axe d'analyse</h5>
+          <p-chart type="pie" [data]="basicData" [options]="basicOptions"></p-chart>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 40%">
+        <div>
+          <h5>Répartition du volume des contributions par DR</h5>
+          <p-chart type="bar" [data]="basicData2" [options]="basicOptions"></p-chart>
+        </div>
+      </div>
+
+      <div class="ods-box" style="width: 40%">
+        <div>
+          <h5>Répartition du volume des contributions pertinentes par DR</h5>
+          <p-chart type="bar" [data]="basicData3" [options]="basicOptions"></p-chart>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end" *jhiHasAnyAuthority="['ROLE_CONTRIBUTEUR', 'ROLE_ANIMATEUR_CENTRAL']">
+        <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-ticket" [routerLink]="[]">
+          <span> Envoyer par Email </span>
+        </button>
+      </div>
+    </form>
   </div>
-
-  <div class="ods-box" style="width: 80%">
-    <div>
-      <a class="tab"><h5>Pertinence des remontées par DR</h5></a>
-      <table class="table table-striped" style="border-style: solid">
-        <tr>
-          <th scope="col" colspan="1" width="30"></th>
-          <th scope="col" colspan="3" width="40" style="border-width: 1px; text-align: center">Volume des remontées</th>
-          <th scope="col" colspan="2" width="40" style="border-width: 1px; text-align: center">Répartitions des remontées (%)</th>
-        </tr>
-        <tr>
-          <th></th>
-          <th style="border-width: 1px; text-align: center">Pertinente</th>
-          <th style="border-width: 1px; text-align: center">Non pertinente</th>
-          <th style="border-width: 1px; text-align: center">Total</th>
-          <th style="border-width: 1px; text-align: center">Pertinente (%)</th>
-          <th style="border-width: 1px; text-align: center">Total (%)</th>
-        </tr>
-        <tbody>
-          <tr *ngFor="let tab of table2; index as i">
-            <th width="300" scope="row">{{ tab.col1 }}</th>
-
-            <td style="border-width: 1px">
-              {{ tab.col2 | number }}
-            </td>
-            <td style="border-width: 1px">{{ tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ (tab.col2 * 100) / (tab.col2 + tab.col3) | number }} %</td>
-            <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / ttotal1 | number }} %</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="ods-box" style="width: 80%">
-    <div>
-      <a class="tab"><h5>Pertinence des remontées par Contributeur</h5></a>
-      <table class="table table-striped" style="border-style: solid">
-        <tr>
-          <th scope="col" colspan="1" width="30"></th>
-          <th scope="col" colspan="3" width="40" style="border-width: 1px; text-align: center">Volume des remontées</th>
-          <th scope="col" colspan="2" width="40" style="border-width: 1px; text-align: center">Répartitions des remontées (%)</th>
-        </tr>
-        <tr>
-          <th></th>
-          <th style="border-width: 1px; text-align: center">Pertinente</th>
-          <th style="border-width: 1px; text-align: center">Non pertinente</th>
-          <th style="border-width: 1px; text-align: center">Total</th>
-          <th style="border-width: 1px; text-align: center">Pertinente (%)</th>
-          <th style="border-width: 1px; text-align: center">Total (%)</th>
-        </tr>
-        <tbody>
-          <tr *ngFor="let tab of table3; index as i">
-            <th width="200" scope="row">{{ tab.col1 }}</th>
-
-            <td style="border-width: 1px">
-              {{ tab.col2 | number }}
-            </td>
-            <td style="border-width: 1px">{{ tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ (tab.col2 * 100) / (tab.col2 + tab.col3) | number }} %</td>
-            <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / ttotal1 | number }} %</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="ods-box" style="width: 80%">
-    <div>
-      <a class="tab"><h5>Volume des remontées affectées par direction</h5></a>
-
-      <table class="table table-striped" style="border-style: solid">
-        <tr>
-          <th scope="col" colspan="1" width="30"></th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées affectées</th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume globales des remontées</th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Répartitions (%)</th>
-        </tr>
-        <tbody>
-          <tr *ngFor="let tab of table4; index as i">
-            <th scope="row">{{ tab.col1 }}</th>
-
-            <td style="border-width: 1px">
-              {{ tab.col2 | number }}
-            </td>
-            <td style="border-width: 1px">{{ tab.col2 + tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ ((tab.col2 + tab.col3) * 100) / total4 | number }} %</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="ods-box" style="width: 80%">
-    <div>
-      <a class="tab"><h5>Volume des remontées traitées par direction</h5></a>
-
-      <table class="table table-striped" style="border-style: solid">
-        <tr>
-          <th scope="col" colspan="1" width="30"></th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées affectées</th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées traitées</th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Taux de clôtures (%)</th>
-        </tr>
-        <tbody>
-          <tr *ngFor="let tab of table4; index as i">
-            <th scope="row">{{ tab.col1 }}</th>
-
-            <td style="border-width: 1px">
-              {{ tab.col2 | number }}
-            </td>
-            <td style="border-width: 1px">{{ tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ (tab.col3 * 100) / total4 | number }} %</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="ods-box" style="width: 80%">
-    <div>
-      <a class="tab"><h5>volume des remontées clôturées par direction</h5></a>
-
-      <table class="table table-striped" style="border-style: solid">
-        <tr>
-          <th scope="col" colspan="1" width="30"></th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées traitées</th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Volume des remontées clôturées</th>
-          <th scope="col" colspan="1" width="40" style="border-width: 1px; text-align: center">Taux de clôtures (%)</th>
-        </tr>
-
-        <tbody>
-          <tr *ngFor="let tab of table4; index as i">
-            <th scope="row">{{ tab.col1 }}</th>
-            <td style="border-width: 1px">{{ tab.col2 | number }}</td>
-            <td style="border-width: 1px">{{ tab.col3 | number }}</td>
-            <td style="border-width: 1px">{{ (tab.col3 * 100) / total4 | number }} %</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="ods-box" style="width: 40%">
-  <div>
-    <h5>Répartition par axe d'analyse</h5>
-    <p-chart type="pie" [data]="basicData" [options]="basicOptions"></p-chart>
-  </div>
-</div>
-
-<div class="ods-box" style="width: 40%">
-  <div>
-    <h5>Répartition du volume des contributions par DR</h5>
-    <p-chart type="bar" [data]="basicData2" [options]="basicOptions"></p-chart>
-  </div>
-</div>
-
-<div class="ods-box" style="width: 40%">
-  <div>
-    <h5>Répartition du volume des contributions pertinentes par DR</h5>
-    <p-chart type="bar" [data]="basicData3" [options]="basicOptions"></p-chart>
-  </div>
-</div>
-
-<div class="d-flex justify-content-end" *jhiHasAnyAuthority="['ROLE_CONTRIBUTEUR', 'ROLE_ANIMATEUR_CENTRAL']">
-  <button id="jh-create-entity" data-cy="entityCreateButton" class="btn btn-primary jh-create-entity create-ticket" [routerLink]="[]">
-    <span> Envoyer par Email </span>
-  </button>
 </div>

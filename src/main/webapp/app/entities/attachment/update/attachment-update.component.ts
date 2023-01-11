@@ -4,7 +4,6 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { finalize, map } from 'rxjs/operators';
-
 import { IAttachment, Attachment } from '../attachment.model';
 import { AttachmentService } from '../service/attachment.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';

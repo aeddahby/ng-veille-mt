@@ -56,6 +56,7 @@ export class TicketUpdateComponent implements OnInit {
     entity: [],
     attachContentType: [],
     attach: [],
+    commentary: [],
   });
 
   constructor(
@@ -171,6 +172,7 @@ export class TicketUpdateComponent implements OnInit {
       entity: ticket.entity,
       attachContentType: ticket.attachContentType,
       attach: ticket.attach,
+      commentary: ticket.commentary,
     });
 
     this.directionRegionalesCollection = this.directionRegionaleService.addDirectionRegionaleToCollectionIfMissing(
@@ -242,6 +244,7 @@ export class TicketUpdateComponent implements OnInit {
       entity: this.editForm.get(['entity'])!.value,
       attachContentType: this.editForm.get(['attachContentType'])!.value,
       attach: this.editForm.get(['attach'])!.value,
+      commentary: this.editForm.get(['commentary'])!.value,
     };
   }
 }

@@ -29,6 +29,7 @@ export interface ITicket {
   attachments?: IAttachment[] | null;
   attachContentType?: string | null;
   attach?: string | null;
+  commentary?: string | null;
 }
 
 export class Ticket implements ITicket {
@@ -55,7 +56,8 @@ export class Ticket implements ITicket {
     public attachments?: IAttachment[] | null,
     public attachContentType?: string | null,
     public attach?: string | null,
-    ) {
+    public commentary?: string | null
+  ) {
     this.contributorVisibility = this.contributorVisibility ?? false;
     this.entityVisibility = this.entityVisibility ?? false;
     this.directionVisibility = this.directionVisibility ?? false;

@@ -1,6 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
+import dayjs, { Dayjs } from 'dayjs/esm';
 import { map, Observable } from 'rxjs';
 import { IStatistic } from '../statistic.model';
 
@@ -14,8 +15,10 @@ export class StatisticService {
 
   constructor(protected http: HttpClient, protected applicationConfigService: ApplicationConfigService) {}
 
-  byCategories(): Observable<EntityArrayResponseType> {
-    return this.http.get<IStatistic[]>(this.resourceUrl + '/pertinenceByCategory', { observe: 'response' }).pipe(map(result => result));
+  byCategories(startDate: Dayjs, finishDate: Dayjs): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IStatistic[]>(`${this.resourceUrl}/pertinenceByCategory/${startDate}/${finishDate}`, { observe: 'response' })
+      .pipe(map(result => result));
   }
 
   byDirection(): Observable<EntityArrayResponseType> {

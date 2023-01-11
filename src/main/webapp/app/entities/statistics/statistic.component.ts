@@ -1,5 +1,7 @@
+import dayjs from 'dayjs/esm';
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { StatisticService } from './service/statistic.service';
 import { IStatistic } from './statistic.model';
 
@@ -30,11 +32,18 @@ export class StatisticComponent implements OnInit {
   labels2: any[] = [];
   labels3: any[] = [];
   basicOptions: any;
+  startDate?: dayjs.Dayjs | null;
+  finishDate?: dayjs.Dayjs | null;
 
-  constructor(protected statisticService: StatisticService) {}
+  editForm = this.fb.group({
+    startDate: [],
+    finishDate: [],
+  });
+
+  constructor(protected statisticService: StatisticService, protected fb: FormBuilder) {}
 
   allPertinences(): void {
-    this.statisticService.byCategories().subscribe((response: HttpResponse<IStatistic[]>) => {
+    this.statisticService.byCategories(this.startDate!, this.finishDate!).subscribe((response: HttpResponse<IStatistic[]>) => {
       this.table1 = response.body;
       this.ttotal1 = 0;
       this.table1.forEach((element: { col2: any; col3: any }) => {
@@ -122,5 +131,18 @@ export class StatisticComponent implements OnInit {
   }
   ngOnInit(): void {
     this.allPertinences();
+  }
+
+  filter(): void {
+    this.startDate = this.editForm.get(['startDate'])!.value;
+    this.finishDate = this.editForm.get(['finishDate'])!.value;
+    this.allPertinences();
+  }
+
+  protected updateForm(statistic: IStatistic): void {
+    this.editForm.patchValue({
+      startDate: statistic.startDate,
+      finishDate: statistic.finishDate,
+    });
   }
 }
